@@ -1,0 +1,70 @@
+name: update
+
+# every day look at dev.mcst.ru and ship a new release when mcst publishes a newer
+# public lcc cross compiler or qemu-e2k-static, older releases are never touched
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: rebuild even when nothing changed
+        type: boolean
+        default: false
+      dry_run:
+        description: build and test but do not release
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: check mcst and build
+      id: u
+      env:
+        FORCE: ${{ inputs.force || false }}
+      run: ./update.sh 2>&1 | tee "$RUNNER_TEMP/update.log"
+
+    - name: release
+      if: steps.u.outputs.changed == 'true' && !inputs.dry_run
+      env:
+        GH_TOKEN: ${{ github.token }}
+        LV: ${{ steps.u.outputs.lcc_version }}
+        QD: ${{ steps.u.outputs.qemu_date }}
+        VD: ${{ steps.u.outputs.ver_dir }}
+        ZS: ${{ steps.u.outputs.zip_sha256 }}
+      run: |
+        tag="lcc-$LV"
+        gh release view "$tag" > /dev/null 2>&1 && tag="lcc-$LV-qemu-$QD"
+        gh release view "$tag" > /dev/null 2>&1 && tag="$tag-r$GITHUB_RUN_NUMBER"
+        W="$RUNNER_TEMP/e2k-update"
+        printf '%s\n' \
+          "lcc $LV for e2k v6 2c3 with qemu-e2k-static from $QD" "" \
+          "installs to /opt/mcst/$VD through setup.sh" "" \
+          "sha256 of elbrus_cross_compiler_toolchain.zip" "" '```' "$ZS" '```' "" \
+          "sources: $(jq -r '.lcc.url + " and " + .qemu.url' "$W/metadata.json")" > "$RUNNER_TEMP/notes.md"
+        gh release create "$tag" "$W"/out/* --target "$GITHUB_SHA" --title "lcc $LV (qemu $QD)" --notes-file "$RUNNER_TEMP/notes.md"
+        cp "$W/metadata.json" "$W/setup.sh" "$W/SHA512SUMS" .
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add metadata.json setup.sh SHA512SUMS
+        git commit -m "lcc $LV with qemu-e2k-static from $QD"
+        git push
+
+    - name: keep the log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: update-log
+        path: ${{ runner.temp }}/update.log

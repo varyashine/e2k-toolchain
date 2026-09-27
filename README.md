@@ -4,21 +4,21 @@ mcst lcc 1.31.05 cross compiler for elbrus e2k v6 (2c3 12c 16c) on an x86_64 lin
 
 ## releases
 
-`lcc-1.31.05` has
+each release has
 
 | file | what |
 |---|---|
 | `elbrus_cross_compiler_toolchain.zip` | everything unpacked and ready, compiler sysroot qemu and setup.sh |
-| `cross-sp-public-osl-1.31.05.e2k-v6.2c3.linux-6.1_64.tgz` | the original public cross package from mcst |
-| `qemu-e2k-static` | the original static qemu-e2k 1.2 |
+| `cross-sp-public-osl-<version>.e2k-v6.2c3.linux-6.1_64.tgz` | the original public cross package from mcst |
+| `qemu-e2k-static` | the original static qemu-e2k |
 
-sha256 of the zip
+sha256 of the zip is in the release notes and sha512 of the originals is in `SHA512SUMS`
 
-```
-ef0688b494bf6731e1dc8d70fa4d795e7270fb1ec2c6ad696453e677d309e884
-```
+## updates
 
-sha512 of the originals is in `SHA512SUMS`
+`update.sh` runs every day in actions. when dev.mcst.ru has a newer lcc for e2k v6 2c3 or a newer qemu-e2k-static it downloads them, checks them against the sha512 published next to them, builds the zip, compiles a c and a c++ hello with it and runs both under qemu-e2k. only if all of that passes a new release goes out and `metadata.json` moves to it. old releases stay as they are
+
+dev.mcst.ru signs its own certificate so the script pins its public key instead of trusting any ca. the certificate runs out on 2027-07-22 and after that the update fails until the pin in `update.sh` is checked and replaced
 
 ## use it
 
