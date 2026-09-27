@@ -1,5 +1,6 @@
 import { ExternalLink, Download, Globe } from 'lucide-react'
 import { GithubIcon } from './GithubIcon'
+import { LegalNotice } from './LegalNotice'
 import { useLanguage } from '../lib/i18n'
 
 export function Footer() {
@@ -59,6 +60,9 @@ export function Footer() {
           <p>{t.footer.legalRu}</p>
           <p className="text-[11px] text-[var(--text-dim)]/80">{t.footer.legalEn}</p>
         </div>
+
+        {/* Expandable detailed legal disclaimer */}
+        <LegalNotice />
       </div>
     </footer>
   )
