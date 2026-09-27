@@ -6,8 +6,8 @@
     "sha512": "5a4cd3c62259e3e2b449ed211d8ee0995788ba97f8f4416e6eadbbc6e2475567e0730bba36f519656eb1d3ddfd498447bbec66bf24f798ecfb060da20ca54df1"
   },
   "qemu": {
-    "date": "unknown",
-    "url": "unknown",
+    "date": "2026-06-17",
+    "url": "https://dev.mcst.ru/downloads/2026-06-17/qemu-e2k-static",
     "sha512": "5b36cb3dddba75fb6ae7a6b3b0e02e43722524f5b48f4a3455bdbae115df3269c28c81a4f2f6fa6fe2ad68ac0f88a5ede5bd8744ca7631d40297ed4ac1d1dfd9"
   }
 }
