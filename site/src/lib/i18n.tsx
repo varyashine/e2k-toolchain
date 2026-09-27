@@ -99,7 +99,7 @@ export const translations: Record<Language, Translations> = {
     },
     quickStart: {
       title: 'quick start',
-      subtitle: 'unpack, symlink sysroot, compile, and run under qemu-e2k',
+      subtitle: 'unpack, symlink the compiler, compile, and run under qemu-e2k',
       copy: 'copy commands',
       copied: 'copied',
       step1: '# 1. extract full bundle',
@@ -179,7 +179,7 @@ export const translations: Record<Language, Translations> = {
     },
     quickStart: {
       title: 'быстрый старт',
-      subtitle: 'распаковка, симлинк sysroot, компиляция и запуск под qemu-e2k',
+      subtitle: 'распаковка, симлинк компилятора, компиляция и запуск под qemu-e2k',
       copy: 'скопировать команды',
       copied: 'скопировано',
       step1: '# 1. распаковка архива со всем необходимым',
