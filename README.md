@@ -2,6 +2,8 @@
 
 mcst lcc 1.31.05 cross compiler for elbrus e2k v6 (2c3 12c 16c) on an x86_64 linux host plus a static qemu-e2k to run what it builds
 
+site: https://varyashine.github.io/e2k-toolchain/
+
 ## releases
 
 each release has
