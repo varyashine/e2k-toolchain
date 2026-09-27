@@ -1,3 +1,4 @@
+import { LanguageProvider } from './lib/i18n'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { QuickStart } from './components/QuickStart'
@@ -8,17 +9,19 @@ import { Footer } from './components/Footer'
 
 export function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-main)] text-[var(--text-main)] font-mono selection:bg-accent/25 selection:text-accent">
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <QuickStart />
-        <ReleaseFiles />
-        <UpdatesPipeline />
-        <UsedBy />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col bg-[var(--bg-main)] text-[var(--text-main)] font-mono selection:bg-accent/25 selection:text-accent">
+        <Header />
+        <main className="flex-1">
+          <Hero />
+          <QuickStart />
+          <ReleaseFiles />
+          <UpdatesPipeline />
+          <UsedBy />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   )
 }
 

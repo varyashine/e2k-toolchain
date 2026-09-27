@@ -1,7 +1,10 @@
 import { Terminal, ExternalLink } from 'lucide-react'
 import { GithubIcon } from './GithubIcon'
+import { useLanguage } from '../lib/i18n'
 
 export function Header() {
+  const { language, setLanguage, t } = useLanguage()
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-main)]/85 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
@@ -12,11 +15,35 @@ export function Header() {
           <span className="text-[var(--text-main)]">e2k-toolchain</span>
         </a>
 
-        <div className="flex items-center gap-3 text-xs">
+        <div className="flex items-center gap-2 sm:gap-3 text-xs">
           <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-2.5 py-1 text-[var(--text-muted)]">
             <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-            lcc 1.31.05
+            {t.header.status}
           </span>
+
+          {/* Language Switcher */}
+          <div className="flex items-center rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] p-0.5 text-xs">
+            <button
+              onClick={() => setLanguage('en')}
+              className={`rounded px-1.5 py-0.5 font-medium transition-colors ${
+                language === 'en'
+                  ? 'bg-accent/15 text-accent border border-accent/25'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage('ru')}
+              className={`rounded px-1.5 py-0.5 font-medium transition-colors ${
+                language === 'ru'
+                  ? 'bg-accent/15 text-accent border border-accent/25'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'
+              }`}
+            >
+              RU
+            </button>
+          </div>
 
           <a
             href="https://github.com/varyashine/e2k-toolchain"
@@ -25,7 +52,7 @@ export function Header() {
             className="flex items-center gap-1.5 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] px-2.5 py-1 text-[var(--text-main)] hover:border-accent hover:text-accent transition-colors"
           >
             <GithubIcon className="h-3.5 w-3.5" />
-            <span className="hidden xs:inline">github</span>
+            <span className="hidden xs:inline">{t.header.github}</span>
             <ExternalLink className="h-3 w-3 opacity-60" />
           </a>
         </div>

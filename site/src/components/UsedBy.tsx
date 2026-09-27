@@ -1,15 +1,18 @@
 import { Gamepad2, GitBranch, ExternalLink, Check } from 'lucide-react'
+import { useLanguage } from '../lib/i18n'
 
 export function UsedBy() {
+  const { t } = useLanguage()
+
   return (
     <section id="used-by" className="border-b border-[var(--border-subtle)] px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6">
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-main)]">
-            used by
+            {t.usedBy.title}
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-[var(--text-muted)]">
-            real-world automated builds in continuous integration
+            {t.usedBy.subtitle}
           </p>
         </div>
 
@@ -31,17 +34,17 @@ export function UsedBy() {
                 </div>
 
                 <p className="mt-1 text-xs text-[var(--text-muted)] leading-relaxed">
-                  a text adventure written in C99, built by CI with this e2k toolchain and played to completion under qemu-e2k emulator.
+                  {t.usedBy.gameDesc}
                 </p>
 
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-[11px] text-[var(--text-dim)]">
                   <span className="inline-flex items-center gap-1 text-[var(--text-muted)]">
                     <Check className="h-3 w-3 text-accent" />
-                    automated e2k compilation
+                    {t.usedBy.tag1}
                   </span>
                   <span className="inline-flex items-center gap-1 text-[var(--text-muted)]">
                     <Check className="h-3 w-3 text-accent" />
-                    full gameplay validation under qemu-e2k
+                    {t.usedBy.tag2}
                   </span>
                 </div>
               </div>
@@ -54,7 +57,7 @@ export function UsedBy() {
               className="inline-flex items-center justify-center gap-1.5 self-start sm:self-center shrink-0 rounded border border-[var(--border-subtle)] bg-[var(--bg-main)] px-3 py-1.5 text-xs font-semibold text-[var(--text-main)] hover:border-accent hover:text-accent transition-colors"
             >
               <GitBranch className="h-3.5 w-3.5" />
-              <span>view repository</span>
+              <span>{t.usedBy.viewRepo}</span>
               <ExternalLink className="h-3 w-3 opacity-60" />
             </a>
           </div>

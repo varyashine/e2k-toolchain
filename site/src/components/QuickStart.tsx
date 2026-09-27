@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Terminal, Copy, Check, Info } from 'lucide-react'
+import { useLanguage } from '../lib/i18n'
 
 export function QuickStart() {
+  const { t } = useLanguage()
   const [copiedZip, setCopiedZip] = useState(false)
   const [copiedTar, setCopiedTar] = useState(false)
 
@@ -32,10 +34,10 @@ lcc -O2 -o hello hello.c
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-main)]">
-              quick start
+              {t.quickStart.title}
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-[var(--text-muted)]">
-              unpack, symlink sysroot, compile, and run under qemu-e2k
+              {t.quickStart.subtitle}
             </p>
           </div>
         </div>
@@ -62,12 +64,12 @@ lcc -O2 -o hello hello.c
               {copiedZip ? (
                 <>
                   <Check className="h-3.5 w-3.5 text-accent" />
-                  <span className="text-accent">copied</span>
+                  <span className="text-accent">{t.quickStart.copied}</span>
                 </>
               ) : (
                 <>
                   <Copy className="h-3.5 w-3.5" />
-                  <span>copy commands</span>
+                  <span>{t.quickStart.copy}</span>
                 </>
               )}
             </button>
@@ -76,16 +78,16 @@ lcc -O2 -o hello hello.c
           {/* Terminal Code Body */}
           <pre className="p-4 text-xs sm:text-sm text-[var(--text-main)] overflow-x-auto leading-relaxed font-mono">
             <code>
-              <span className="text-[var(--text-dim)]"># 1. extract full bundle</span>{'\n'}
+              <span className="text-[var(--text-dim)]">{t.quickStart.step1}</span>{'\n'}
               <span className="text-accent font-semibold">$</span> unzip elbrus_cross_compiler_toolchain.zip{'\n'}
               <span className="text-accent font-semibold">$</span> cd elbrus-toolchain{'\n\n'}
-              <span className="text-[var(--text-dim)]"># 2. symlink to /opt/mcst (lcc expects compiler components at /opt/mcst)</span>{'\n'}
+              <span className="text-[var(--text-dim)]">{t.quickStart.step2}</span>{'\n'}
               <span className="text-accent font-semibold">$</span> sudo ./setup.sh{'\n\n'}
-              <span className="text-[var(--text-dim)]"># 3. add cross-compiler to PATH</span>{'\n'}
+              <span className="text-[var(--text-dim)]">{t.quickStart.step3}</span>{'\n'}
               <span className="text-accent font-semibold">$</span> export PATH=/opt/mcst/lcc-1.31.05.e2k-v6.2c3.linux-6.1/bin:$PATH{'\n\n'}
-              <span className="text-[var(--text-dim)]"># 4. compile C source for elbrus e2k</span>{'\n'}
+              <span className="text-[var(--text-dim)]">{t.quickStart.step4}</span>{'\n'}
               <span className="text-accent font-semibold">$</span> lcc -O2 -o hello hello.c{'\n\n'}
-              <span className="text-[var(--text-dim)]"># 5. run elbrus binary on x86_64 host via qemu-e2k</span>{'\n'}
+              <span className="text-[var(--text-dim)]">{t.quickStart.step5}</span>{'\n'}
               <span className="text-accent font-semibold">$</span> ./emulator/qemu-e2k -L /opt/mcst/lcc-1.31.05.e2k-v6.2c3.linux-6.1/fs ./hello
             </code>
           </pre>
@@ -95,7 +97,7 @@ lcc -O2 -o hello hello.c
         <div className="mt-4 flex items-start gap-2.5 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-card)] p-3 text-xs text-[var(--text-muted)]">
           <Info className="h-4 w-4 shrink-0 text-accent mt-0.5" />
           <p className="leading-relaxed">
-            <span className="text-[var(--text-main)] font-semibold">setup.sh note:</span> setup.sh only symlinks the unpacked compiler to <code className="text-accent">/opt/mcst</code> because lcc looks for its parts under that exact path.
+            <span className="text-[var(--text-main)] font-semibold">{t.quickStart.setupNoteTitle}</span> {t.quickStart.setupNoteText}
           </p>
         </div>
 
@@ -103,14 +105,14 @@ lcc -O2 -o hello hello.c
         <div className="mt-6 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
             <span className="text-xs font-semibold text-[var(--text-main)]">
-              or install directly from original mcst archive:
+              {t.quickStart.altTitle}
             </span>
             <button
               onClick={handleCopyTar}
               className="self-start sm:self-auto inline-flex items-center gap-1 rounded border border-[var(--border-subtle)] bg-[var(--bg-main)] px-2 py-0.5 text-[11px] text-[var(--text-muted)] hover:border-accent hover:text-accent transition-colors"
             >
               {copiedTar ? <Check className="h-3 w-3 text-accent" /> : <Copy className="h-3 w-3" />}
-              <span>{copiedTar ? 'copied' : 'copy'}</span>
+              <span>{copiedTar ? t.quickStart.copied : t.quickStart.copy}</span>
             </button>
           </div>
           <pre className="rounded bg-[var(--code-bg)] p-2.5 text-xs text-[var(--text-main)] overflow-x-auto font-mono">

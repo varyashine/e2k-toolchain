@@ -1,7 +1,10 @@
 import { ExternalLink, Download, Globe } from 'lucide-react'
 import { GithubIcon } from './GithubIcon'
+import { useLanguage } from '../lib/i18n'
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="px-4 py-12 sm:px-6 bg-[var(--bg-main)]">
       <div className="mx-auto max-w-4xl">
@@ -11,7 +14,7 @@ export function Footer() {
               e2k-toolchain
             </span>
             <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-              public mirror of mcst lcc cross-compiler for elbrus e2k on x86_64 linux
+              {t.footer.desc}
             </p>
           </div>
 
@@ -23,7 +26,7 @@ export function Footer() {
               className="inline-flex items-center gap-1 text-[var(--text-muted)] hover:text-accent transition-colors"
             >
               <Globe className="h-3.5 w-3.5" />
-              <span>mcst source</span>
+              <span>{t.footer.mcstSource}</span>
               <ExternalLink className="h-2.5 w-2.5 opacity-60" />
             </a>
 
@@ -34,7 +37,7 @@ export function Footer() {
               className="inline-flex items-center gap-1 text-[var(--text-muted)] hover:text-accent transition-colors"
             >
               <Download className="h-3.5 w-3.5" />
-              <span>releases</span>
+              <span>{t.footer.releases}</span>
               <ExternalLink className="h-2.5 w-2.5 opacity-60" />
             </a>
 
@@ -45,7 +48,7 @@ export function Footer() {
               className="inline-flex items-center gap-1 text-[var(--text-muted)] hover:text-accent transition-colors"
             >
               <GithubIcon className="h-3.5 w-3.5" />
-              <span>repository</span>
+              <span>{t.footer.repo}</span>
               <ExternalLink className="h-2.5 w-2.5 opacity-60" />
             </a>
           </div>
@@ -53,12 +56,8 @@ export function Footer() {
 
         {/* Legal Disclaimer Line */}
         <div className="pt-6 text-xs text-[var(--text-dim)] leading-relaxed space-y-1">
-          <p>
-            LCC — продукт АО «МЦСТ», здесь зеркалится публичный пакет cross-sp-public-osl без изменений.
-          </p>
-          <p className="text-[11px] text-[var(--text-dim)]/80">
-            LCC is a product of MCST JSC. This repository mirrors the public cross-sp-public-osl package without modifications.
-          </p>
+          <p>{t.footer.legalRu}</p>
+          <p className="text-[11px] text-[var(--text-dim)]/80">{t.footer.legalEn}</p>
         </div>
       </div>
     </footer>

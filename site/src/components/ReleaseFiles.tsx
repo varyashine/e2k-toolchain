@@ -1,36 +1,36 @@
 import { Archive, Package, Play, ShieldCheck, Download } from 'lucide-react'
+import { useLanguage } from '../lib/i18n'
 
 export function ReleaseFiles() {
+  const { t } = useLanguage()
+
   const files = [
     {
       name: 'elbrus_cross_compiler_toolchain.zip',
       size: '~750 MB',
-      type: 'all-in-one zip',
-      description: 'everything unpacked and ready: compiler, sysroot, qemu, setup.sh',
+      description: t.releases.zipDesc,
       icon: Archive,
-      badge: 'recommended',
+      badge: t.releases.recommendedBadge,
       recommended: true,
-      hashInfo: 'sha256 in release notes',
+      hashInfo: t.releases.zipHash,
     },
     {
       name: 'cross-sp-public-osl-1.31.05.e2k-v6.2c3.linux-6.1_64.tgz',
       size: '290 MB',
-      type: 'upstream tarball',
-      description: 'the original public cross package from dev.mcst.ru',
+      description: t.releases.tarDesc,
       icon: Package,
-      badge: 'official mirror',
+      badge: t.releases.mirrorBadge,
       recommended: false,
-      hashInfo: 'sha512 in SHA512SUMS',
+      hashInfo: t.releases.tarHash,
     },
     {
       name: 'qemu-e2k-static',
       size: 'binary',
-      type: 'static emulator',
-      description: 'the original static qemu-e2k emulator from mcst',
+      description: t.releases.qemuDesc,
       icon: Play,
-      badge: 'emulator',
+      badge: t.releases.emulatorBadge,
       recommended: false,
-      hashInfo: 'sha512 in SHA512SUMS',
+      hashInfo: t.releases.qemuHash,
     },
   ]
 
@@ -39,10 +39,10 @@ export function ReleaseFiles() {
       <div className="mx-auto max-w-4xl">
         <div className="mb-6">
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-main)]">
-            what's in a release
+            {t.releases.title}
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-[var(--text-muted)]">
-            every release contains three standalone assets
+            {t.releases.subtitle}
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function ReleaseFiles() {
         <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 text-xs">
           <div className="flex items-center gap-2 text-[var(--text-muted)]">
             <ShieldCheck className="h-4 w-4 text-accent shrink-0" />
-            <span>sha256 of the zip is published in release notes; sha512 of upstream originals is tracked in SHA512SUMS</span>
+            <span>{t.releases.securityBanner}</span>
           </div>
           <a
             href="https://github.com/varyashine/e2k-toolchain/releases/latest"
@@ -105,7 +105,7 @@ export function ReleaseFiles() {
             className="inline-flex items-center gap-1.5 self-start sm:self-auto text-accent hover:underline font-semibold"
           >
             <Download className="h-3.5 w-3.5" />
-            <span>view latest assets</span>
+            <span>{t.releases.viewAssets}</span>
           </a>
         </div>
       </div>

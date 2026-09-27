@@ -1,34 +1,37 @@
 import { Clock, Search, ShieldCheck, Hammer, CheckCircle2, Lock } from 'lucide-react'
+import { useLanguage } from '../lib/i18n'
 
 export function UpdatesPipeline() {
+  const { t } = useLanguage()
+
   const steps = [
     {
       num: '01',
-      title: 'check',
+      title: t.updates.step1Title,
       icon: Search,
-      description: 'downloads new lcc or qemu-e2k when published on dev.mcst.ru',
-      detail: 'curl --pinnedpubkey (pinned certificate, trusts no CA)',
+      description: t.updates.step1Desc,
+      detail: t.updates.step1Detail,
     },
     {
       num: '02',
-      title: 'verify sha-512',
+      title: t.updates.step2Title,
       icon: ShieldCheck,
-      description: 'validates cryptographic integrity against official checksums on mcst site',
-      detail: 'strict match required before processing',
+      description: t.updates.step2Desc,
+      detail: t.updates.step2Detail,
     },
     {
       num: '03',
-      title: 'build',
+      title: t.updates.step3Title,
       icon: Hammer,
-      description: 'assembles ready-to-run all-in-one zip archive with compiler, sysroot, and qemu',
-      detail: 'packages setup.sh and sets executable permissions',
+      description: t.updates.step3Desc,
+      detail: t.updates.step3Detail,
     },
     {
       num: '04',
-      title: 'test under qemu',
+      title: t.updates.step4Title,
       icon: CheckCircle2,
-      description: 'compiles c and c++ hello binaries and runs both under qemu-e2k',
-      detail: 'release published only if test binaries run cleanly',
+      description: t.updates.step4Desc,
+      detail: t.updates.step4Detail,
     },
   ]
 
@@ -38,16 +41,16 @@ export function UpdatesPipeline() {
         <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-main)]">
-              how updates work
+              {t.updates.title}
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-[var(--text-muted)]">
-              automated daily verification pipeline in github actions
+              {t.updates.subtitle}
             </p>
           </div>
 
           <div className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded border border-[var(--border-subtle)] bg-[var(--bg-card)] px-2.5 py-1 text-xs text-[var(--text-muted)]">
             <Clock className="h-3.5 w-3.5 text-accent" />
-            <span>daily at 06:17 UTC</span>
+            <span>{t.updates.frequency}</span>
           </div>
         </div>
 
@@ -93,9 +96,9 @@ export function UpdatesPipeline() {
           <div className="flex items-start gap-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 text-xs">
             <Lock className="h-4 w-4 text-accent shrink-0 mt-0.5" />
             <div>
-              <div className="font-semibold text-[var(--text-main)] mb-1">pinned public key</div>
+              <div className="font-semibold text-[var(--text-main)] mb-1">{t.updates.pinTitle}</div>
               <p className="text-[var(--text-muted)] leading-relaxed">
-                dev.mcst.ru uses a self-signed certificate, so the update script pins the server's public key (<code className="text-accent">curl --pinnedpubkey</code>) instead of trusting any certificate authority.
+                {t.updates.pinDesc}
               </p>
             </div>
           </div>
@@ -104,9 +107,9 @@ export function UpdatesPipeline() {
           <div className="flex items-start gap-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 text-xs">
             <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
             <div>
-              <div className="font-semibold text-[var(--text-main)] mb-1">release guarantee</div>
+              <div className="font-semibold text-[var(--text-main)] mb-1">{t.updates.guaranteeTitle}</div>
               <p className="text-[var(--text-muted)] leading-relaxed">
-                a release goes out only if all tests pass. if dev.mcst.ru is unreachable or any test fails, no release is made. old releases stay as they are.
+                {t.updates.guaranteeDesc}
               </p>
             </div>
           </div>
